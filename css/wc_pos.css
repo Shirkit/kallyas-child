@@ -1,0 +1,153 @@
+.tr_order_coupon[data-coupon^="autorevenda"] {
+	display: none;
+}
+
+.wrap-coupons-buttons {
+	display: flex;
+	padding: 3%;
+}
+.wrap-coupons-buttons button.button.button-primary.wp-button-large {
+	height: 40px;
+	border: none;
+	background: #e0e0e0;
+	font-weight: normal;
+	box-shadow: none;
+	text-shadow: none;
+	color: #555;
+	padding: 0 24px;
+	vertical-align: middle;
+	line-height: 40px;
+	font-size: 125%;
+	border-radius: 5px;
+	-webkit-appearance: none;
+}
+
+/* Tela de Pagamento */
+
+
+@media only screen and (max-height: 600px) {
+	#modal-order_payment {
+		min-height: unset !important;
+	}
+
+	#modal-order_payment .bootstrap-switch .bootstrap-switch-label {
+		padding: 0 !important;
+	}
+
+	#inline_amount_tendered .amount_pay_keypad .keypad-key, #inline_amount_tendered .amount_pay_keypad .keypad-back, #inline_amount_tendered .amount_pay_keypad .keypad-clear, .amount_pay_keypad .keypad-tendered_1, .amount_pay_keypad .keypad-tendered_2, .amount_pay_keypad .keypad-tendered_3, .amount_pay_keypad .keypad-tendered_4 {
+		height: 14vh !important;
+	}
+
+	#inline_amount_tendered .amount_pay_keypad .keypad-close {
+		height: 28vh !important;
+		padding-top: 0 !important;
+	}
+}
+
+#modal-order_payment .pos_end_toggles {
+	/*display: none !important;*/
+}
+
+#modal-order_payment .payment_box > p {
+	/*display: none !important;*/
+}
+
+#modal-order_payment .keypad-special.keypad-tendered_1, #modal-order_payment .keypad-special.keypad-tendered_2, #modal-order_payment .keypad-special.keypad-tendered_3, #modal-order_payment .keypad-special.keypad-tendered_4 {
+	display: none !important;
+}
+
+#modal-order_payment .keypad-row {
+	text-align: left !important;
+}
+
+#modal-order_payment .go_payment {
+	background: #00c853 !important;
+}
+
+#modal-order_payment .go_payment:hover {
+    background: #009624 !important;
+}
+
+#modal-order_payment .amount_tendered:first-child {
+	display: none !important;
+}
+
+#modal-order_payment .amount_tendered:first-child::after {
+	content: 'Pago / Troco' !important;
+}
+
+#modal-order_payment .media-frame-menu .payment_method_transfer_orquidario::before {
+    content: url(transfer.svg);
+}
+
+#modal-order_payment .media-frame-menu .payment_method_cheque_orquidario::before {
+    content: url(cheque.svg);
+}
+
+#modal-order_payment .media-frame-menu .payment_method_consignado_orquidario::before {
+	margin-top: -3px;
+    content: url(pay.svg);
+}
+
+/* Tela de Produto */
+
+#modal-add_custom_product .add_custom_product_meta, #modal-add_custom_product .product_type, #modal-add_custom_product #add_custom_product_meta {
+	display: none !important;
+}
+
+/* Tela de Desconto */
+@media only screen and (max-height: 600px) {
+	#modal-order_discount {
+		min-height: unset !important;
+		top: 57% !important;
+	}
+
+	#inline_order_discount .keypad-key, #inline_order_discount .keypad-special, #inline_amount_tendered .keypad-key, #inline_amount_tendered .keypad-close, #inline_amount_tendered .keypad-back, #inline_amount_tendered .keypad-clear, #custom_fee_value .keypad-key, #custom_fee_value .keypad-special, #modal-missing-attributes .inline_quantity .quantity_keypad button {
+		height: 60px !important;
+	}
+
+	#inline_order_discount .keypad-close {
+		height: 120px !important;
+		padding-top: 50px !important;
+	}
+}
+
+#modal-order_discount button.keypad-special:last-child {
+	background: #eee !important;
+
+}
+
+#modal-order_discount button.active {
+	background: #c3fcd4 !important;
+}
+
+#modal-order_discount .wrap-custom-button-discount {
+	position: relative !important;
+}
+
+#modal-order_discount .wrap-custom-button-discount button {
+	float: none !important;
+}
+
+/* Tela Geral */
+
+#edit_wc_pos_registers #add_shipping_to_register {
+	display: none !important;
+}
+
+#add_customer_to_register {
+	font-size: 0;
+}
+
+#add_customer_to_register::before, #add_customer_to_register::after {
+	font-size: 13px;
+}
+
+#add_customer_to_register::after {
+	content: 'Cliente';
+	vertical-align: middle;
+}
+
+.hidden-category {
+	display: none !important;
+}

@@ -1,0 +1,4 @@
+plugins/woocommerce-point-of-sale-pos/assets/js/register/app.s=js
+ - line 1972 / 1991 / 2015 / 2040 (just after the final attribution of  'fullname' after the JOIN)
+  + added hook for fullname
+   + fullname = fullNameHook !== 'undefined' ? fullNameHook(val, fullname) : fullname;
