@@ -12,9 +12,6 @@ function fullNameHook(result, text) {
 
 jQuery(document).ready(function($) {
 
-	// Views
-	$('#modal-order_discount #coupon_tab .wrap-button').before('<div class="wrap-button wrap-custom-button-discount" ><button class="button button-primary wp-button-large alignright" type="button" name="apply_coupon_revenda" id="apply_coupon_revenda_btn">Revendedor</button></div>');
-
 	// Logic
   var functions = {};
 
@@ -32,7 +29,7 @@ jQuery(document).ready(function($) {
     return true;
   };
 
-  $('#apply_coupon_revenda_btn').click(function(e) {
+  $('#modal-order_discount #coupon_tab .wrap-custom-button-discount button[name=revendedor]').click(function(e) {
     apply_coupon_revenda();
     return false;
   });
@@ -184,7 +181,7 @@ jQuery(document).ready(function($) {
 
   var My_WC_Coupon = function(code, data) {
     var coupon = new functions.WC_Coupon(code, data);
-    if (code && code.indexOf('autorevenda_') != -1) {
+    if (code && code.indexOf('autorevenda') != -1) {
       coupon.is_valid = is_valid;
     }
     return coupon;
