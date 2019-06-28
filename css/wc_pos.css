@@ -76,19 +76,6 @@
 	content: 'Pago / Troco' !important;
 }
 
-#modal-order_payment .media-frame-menu .payment_method_transfer_orquidario::before {
-    content: url(transfer.svg);
-}
-
-#modal-order_payment .media-frame-menu .payment_method_cheque_orquidario::before {
-    content: url(cheque.svg);
-}
-
-#modal-order_payment .media-frame-menu .payment_method_consignado_orquidario::before {
-	margin-top: -3px;
-    content: url(pay.svg);
-}
-
 /* Tela de Produto */
 
 #modal-add_custom_product .add_custom_product_meta, #modal-add_custom_product .product_type, #modal-add_custom_product #add_custom_product_meta {

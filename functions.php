@@ -3,7 +3,7 @@
 ?>
 <?php
 
-/* ======================================================== 
+/* ========================================================
  * Resize author's avatar
  * ======================================================== */
 add_filter("zn_author_bio_avatar_size", "change_author_avatar_size");
@@ -11,17 +11,17 @@ function change_author_avatar_size() {
 	return 70;
 }
 
-/* ======================================================== 
+/* ========================================================
  * Allow custom MIME types
  * ======================================================== */
 add_filter( 'upload_mimes', 'my_myme_types', 1, 1 );
 function my_myme_types( $mime_types ) {
   $mime_types['csv'] = 'text/csv';     // Adding .csv extension
-  
+
   return $mime_types;
 }
 
-/* ======================================================== 
+/* ========================================================
  * Reorder Checkout fields
  * ======================================================== */
 add_filter("woocommerce_checkout_fields", "orquidario_override_checkout_fields", 1);
@@ -33,37 +33,37 @@ function orquidario_override_checkout_fields($fields) {
 	foreach ($fields['billing']['billing_country']['class'] as &$str) {
     	$str = str_replace('form-row-wide', 'form-row-first', $str);
 	}
-	
+
     $fields['billing']['billing_state']['priority'] = 50;
 	foreach ($fields['billing']['billing_state']['class'] as &$str) {
     	$str = str_replace('form-row-wide', 'form-row-last', $str);
 	}
-	
+
     $fields['billing']['billing_address_1']['priority'] = 60;
 	$fields['billing']['billing_address_1']['placeholder'] = '';
 	foreach ($fields['billing']['billing_address_1']['class'] as &$str) {
     	$str = str_replace('form-row-last', 'form-row-wide', $str);
 		$str = str_replace('form-row-first', 'form-row-wide', $str);
 	}
-	
+
 	$fields['billing']['billing_number']['priority'] = 61;
 	$fields['billing']['billing_address_2']['priority'] = 62;
 	$fields['billing']['billing_address_2']['placeholder'] = '';
-	
+
 	$fields['billing']['billing_city']['priority'] = 70;
-	
+
 	$fields['billing']['billing_neighborhood']['priority'] = 80;
 	foreach ($fields['billing']['billing_neighborhood']['class'] as &$str) {
     	$str = str_replace('form-row-last', 'form-row-first', $str);
 	}
-	
+
     $fields['billing']['billing_postcode']['priority'] = 90;
     $fields['billing']['billing_email']['priority'] = 100;
     $fields['billing']['billing_phone']['priority'] = 110;
-	
-	
+
+
 	// Shipping
-	
+
 	$fields['shipping']['shipping_first_name']['priority'] = 10;
     $fields['shipping']['shipping_last_name']['priority'] = 20;
     $fields['shipping']['shipping_company']['priority'] = 30;
@@ -71,57 +71,57 @@ function orquidario_override_checkout_fields($fields) {
 	foreach ($fields['shipping']['shipping_country']['class'] as &$str) {
     	$str = str_replace('form-row-wide', 'form-row-first', $str);
 	}
-	
+
     $fields['shipping']['shipping_state']['priority'] = 50;
 	foreach ($fields['shipping']['shipping_state']['class'] as &$str) {
     	$str = str_replace('form-row-wide', 'form-row-last', $str);
 	}
-	
+
     $fields['shipping']['shipping_address_1']['priority'] = 60;
 	$fields['shipping']['shipping_address_1']['placeholder'] = '';
 	foreach ($fields['shipping']['shipping_address_1']['class'] as &$str) {
     	$str = str_replace('form-row-last', 'form-row-wide', $str);
 		$str = str_replace('form-row-first', 'form-row-wide', $str);
 	}
-	
+
 	$fields['shipping']['shipping_number']['priority'] = 61;
 	$fields['shipping']['shipping_address_2']['priority'] = 62;
 	$fields['shipping']['shipping_address_2']['placeholder'] = '';
-	
+
 	$fields['shipping']['shipping_city']['priority'] = 70;
-	
+
 	$fields['shipping']['shipping_neighborhood']['priority'] = 80;
 	foreach ($fields['shipping']['shipping_neighborhood']['class'] as &$str) {
     	$str = str_replace('form-row-last', 'form-row-first', $str);
 	}
-	
+
     $fields['shipping']['shipping_postcode']['priority'] = 90;
-	
+
 	if (is_admin()) {
 		try {
 			$screen = get_current_screen();
 			if ($screen->id == 'pos_page') {
 				$fields['billing']['billing_number']['priority'] = 65;
 				$fields['billing']['billing_address_2']['priority'] = 61;
-				
+
 				foreach ($fields['billing']['billing_address_2']['class'] as &$str) {
 					$str = str_replace('form-row-last', 'form-row-wide', $str);
 					$str = str_replace('form-row-first', 'form-row-wide', $str);
 				}
-				
+
 				foreach ($fields['billing']['billing_email']['class'] as &$str) {
 					$str = str_replace('form-row-last', 'form-row-wide', $str);
 					$str = str_replace('form-row-first', 'form-row-wide', $str);
 				}
-				
+
 				foreach ($fields['billing']['billing_cellphone']['class'] as &$str) {
 					$str = str_replace('form-row-last', 'form-row-first', $str);
 				}
-				
+
 				foreach ($fields['billing']['billing_phone']['class'] as &$str) {
 					$str = str_replace('form-row-first', 'form-row-last', $str);
 				}
-				
+
 				foreach ($fields['billing']['billing_postcode']['class'] as &$str) {
 					$str = str_replace('form-row-first', 'form-row-last', $str);
 				}
@@ -129,11 +129,11 @@ function orquidario_override_checkout_fields($fields) {
 		} catch (Error $e) {
 		}
 	}
-	
+
     return $fields;
 }
 
-/* ======================================================== 
+/* ========================================================
  * Allow reseller coupons to be used
  * ======================================================== */
 add_filter('woocommerce_coupon_is_valid', 'woocommerce_coupon_is_valid', 10, 3);
@@ -161,10 +161,10 @@ function woocommerce_coupon_is_valid_for_product($valid, $product, $coupon, $val
     return $valid;
 }
 
-/* ======================================================== 
+/* ========================================================
  * Put custom JS/CSS in POS screen
  * ======================================================== */
-add_action('admin_print_footer_scripts', 'wc_poster_footer_child', 0);
+//add_action('admin_print_footer_scripts', 'wc_poster_footer_child', 0);
 function wc_poster_footer_child() {
 	if (is_admin()) {
 		try {
@@ -180,7 +180,7 @@ function wc_poster_footer_child() {
 	}
 }
 
-/* ======================================================== 
+/* ========================================================
  * Remove obrigatory fields for POS area
  * Re-order them a bit as well
  * ======================================================== */
@@ -229,7 +229,7 @@ function custom_override_checkout_fields2( $args, $key, $value ) {
 	return $args;
 }
 
-/* ======================================================== 
+/* ========================================================
  * Adds the current user role to the administration backend
  * ======================================================== */
 add_filter( 'admin_body_class', function( $classes ) {
@@ -238,7 +238,7 @@ add_filter( 'admin_body_class', function( $classes ) {
 	return $classes . $imp;
 });
 
-/* ======================================================== 
+/* ========================================================
  * Add the ability to Registrations for Woocommerce to get a Phone per participant
  * ======================================================== */
 function registrations_display_participant_fields( $checkout, $current_participant ) {
@@ -265,7 +265,7 @@ function registrations_admin_display_participant_fields( $participant ) {
 }
 add_action( 'registrations_admin_order_meta_participant_fields', 'registrations_admin_display_participant_fields', 10, 1 );
 
-/* ======================================================== 
+/* ========================================================
  * Restores the ability to add to cart on CURSO for online shopping
  * ======================================================== */
 add_action( 'template_redirect', 'restore_registrations', 50 );
@@ -282,7 +282,7 @@ function restore_registrations() {
 	}
 }
 
-/* ======================================================== 
+/* ========================================================
  * Modify login on the front-end to enable translation
  * ======================================================== */
 add_action('zn_head__top_right', 'replace_zn_login_text_with_woocommerce');
@@ -327,12 +327,12 @@ if ( ! function_exists( 'custom_zn_login_text' ) ) {
 	}
 }
 
-/* ======================================================== 
+/* ========================================================
  * Supress admin notices for WooCommerce
  * ======================================================== */
 //add_filter( 'woocommerce_helper_suppress_admin_notices', '__return_true' );
 
-/* ======================================================== 
+/* ========================================================
  * Add a humans.txt link to the front-end
  * ======================================================== */
 add_action( "wp_head", "author_tag" );
@@ -340,7 +340,7 @@ function author_tag( $match ) {
 	echo '<link type="text/plain" rel="author" href="http://www.orquidariobahia.com.br/humans.txt" />';
 }
 
-/* ======================================================== 
+/* ========================================================
  * Front-end CSS and JS enqueue
  * ======================================================== */
 add_action( 'wp_enqueue_scripts', 'kl_child_scripts',11 );
@@ -354,7 +354,7 @@ function kl_child_scripts() {
     //wp_enqueue_script ( "atlantida" );
 }
 
-/* ======================================================== 
+/* ========================================================
  * Admin area enqueue
  * ======================================================== */
 function kl_child_admin_scripts() {
@@ -369,7 +369,7 @@ function kl_child_admin_scripts() {
 }
 add_action( 'admin_enqueue_scripts', 'kl_child_admin_scripts' );
 
-/* ======================================================== 
+/* ========================================================
  * Unkown
  * ======================================================== */
 function kallyas_parse_options($admin_options) {
@@ -396,7 +396,7 @@ function zn_resmenu_wrapper(){
 	<?php
 }
 
-/* ======================================================== 
+/* ========================================================
  * Load child theme's textdomain.
  * ======================================================== */
 /*function kallyasChildLoadTextDomain(){
@@ -404,7 +404,7 @@ function zn_resmenu_wrapper(){
 }
 add_action( 'after_setup_theme', 'kallyasChildLoadTextDomain' );*/
 
-/* ======================================================== 
+/* ========================================================
  * Remove related procuts for WooCommerce
  * This prevent loading on the backend and having any actual HTML code showing up on the front-end
  * ======================================================== */
@@ -413,7 +413,7 @@ function wc_remove_related_products( $args ) {
 }
 add_filter('woocommerce_related_products_args','wc_remove_related_products', 10);
 
-/* ======================================================== 
+/* ========================================================
  * Removes the white bar from kallyas that wraps the related products
  * ======================================================== */
 function remove_kallyas_white_bar( $args ) {
@@ -422,7 +422,7 @@ function remove_kallyas_white_bar( $args ) {
 }
 add_action( 'woocommerce_after_single_product_summary',  'remove_kallyas_white_bar', 5);
 
-/* ======================================================== 
+/* ========================================================
  * Changes WooCommerce default state
  * ======================================================== */
 function change_default_checkout_state() {
@@ -430,7 +430,7 @@ function change_default_checkout_state() {
 }
 add_filter( 'default_checkout_state', 'change_default_checkout_state' );
 
-/* ======================================================== 
+/* ========================================================
  * Remove unused/invalid/impossible states
  * ======================================================== */
 function custom_woocommerce_states( $states ) {
@@ -443,7 +443,7 @@ function custom_woocommerce_states( $states ) {
 }
 add_filter( 'woocommerce_states', 'custom_woocommerce_states' );
 
-/* ======================================================== 
+/* ========================================================
  * Inline HTML code in the Header
  * ======================================================== */
 //add_action('wp_head', 'KallyasChild_loadHeadScript' );
@@ -458,7 +458,7 @@ function KallyasChild_loadHeadScript(){
 
 }
 
-/* ======================================================== 
+/* ========================================================
  * Inline HTML code in the Footer.
  * ======================================================== */
 function KallyasChild_loadFooterScript(){
