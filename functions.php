@@ -201,21 +201,60 @@ function orquidario_webmaniabr_pedido_cnpj_credenciadora($cnpj, $post_id, $order
 add_filter('webmaniabr_pedido_bandeira', 'orquidario_webmaniabr_pedido_bandeira', 10, 3);
 function orquidario_webmaniabr_pedido_bandeira($bandeira, $post_id, $order)
 {
+    $data = get_post_meta($post_id, 'card_payment_data', true);
+    if (isset($data['cardBrand'])) {
+      if (stripos($data['cardBrand'], 'VISA') !== false) {
+        return '01';
+      } else if (stripos($data['cardBrand'], 'MASTER') !== false) {
+        return '02';
+      } else if (stripos($data['cardBrand'], 'ELECTRON') !== false) {
+        return '01';
+      } else if (stripos($data['cardBrand'], 'MAESTRO') !== false) {
+        return '02';
+      } else if (stripos($data['cardBrand'], 'ELO') !== false) {
+        return '06';
+      } else if (stripos($data['cardBrand'], 'HIPERCARD') !== false) {
+        return '07';
+      }  else if (stripos($data['cardBrand'], 'AMEX') !== false) {
+        return '03';
+      }  else if (stripos($data['cardBrand'], 'AMERICAN') !== false) {
+        return '03';
+      }  else if (stripos($data['cardBrand'], 'SOROCRED') !== false) {
+        return '04';
+      }  else if (stripos($data['cardBrand'], 'CLUB') !== false) {
+        return '05';
+      }  else if (stripos($data['cardBrand'], 'DINER') !== false) {
+        return '05';
+      } else if (stripos($data['cardBrand'], 'AURA') !== false) {
+        return '08';
+      } else if (stripos($data['cardBrand'], 'CABAL') !== false) {
+        return '09';
+      } else {
+        return '99';
+      }
+    }
     return $bandeira;
 }
 
 add_filter('webmaniabr_pedido_autorizacao', 'orquidario_webmaniabr_pedido_autorizacao', 10, 3);
 function orquidario_webmaniabr_pedido_autorizacao($autorizacao, $post_id, $order)
 {
+    $data = get_post_meta($post_id, 'card_payment_data', true);
+    if (isset($data['hostNsu'])) {
+      return $data['hostNSu'];
+    }
     return $autorizacao;
 }
 
 add_filter('option_wc_settings_woocommercenfe_payment_methods', 'orquidario_wc_settings_woocommercenfe_payment_methods', 10, 2);
 function orquidario_wc_settings_woocommercenfe_payment_methods($value, $option)
 {
-    $value[get_option('pos_chip_pin_name')] = 03;
-    $value[get_option('pos_chip_pin3_name')] = 04;
-    $value[get_option('pos_chip_pin2_name')] = 99;
+    /*$value[get_option('pos_chip_pin_name')] = 03;
+    $value[get_option('pos_chip_pin2_name')] = 04;
+    $value[get_option('pos_chip_pin3_name')] = 99;*/
+    $value['pos_chip_pin'] = 03;
+    $value['pos_chip_pin2'] = 04;
+    $value['pos_chip_pin3'] = 99;
     $value['cod'] = 01;
     return $value;
 }
@@ -402,7 +441,7 @@ function woocommerce_coupon_is_valid_for_product($valid, $product, $coupon, $val
 /* ========================================================
  * Put custom JS/CSS in POS screen
  * ======================================================== */
-//add_action('admin_print_footer_scripts', 'wc_poster_footer_child', 0);
+add_action('admin_print_footer_scripts', 'wc_poster_footer_child', 0);
 function wc_poster_footer_child()
 {
     if (is_admin()) {

@@ -12,19 +12,20 @@ function fullNameHook(result, text) {
 
 jQuery(document).ready(function($) {
 
-	// Logic
+  // Logic
   var functions = {};
+  var lastPaymentData = null;
 
   var apply_coupon_revenda = function() {
-	APP.db.values('coupons').done(function(obs) {
-		for (var i = 0; i < obs.length; i++) {
-			if (obs[i].code.startsWith('autorevenda')) {
-				CART.add_discount(obs[i].code);
-			}
-		}
-	});
+    APP.db.values('coupons').done(function(obs) {
+      for (var i = 0; i < obs.length; i++) {
+        if (obs[i].code.startsWith('autorevenda')) {
+          CART.add_discount(obs[i].code);
+        }
+      }
+    });
   };
-  
+
   var is_valid = function() {
     return true;
   };
@@ -187,10 +188,50 @@ jQuery(document).ready(function($) {
     return coupon;
   };
 
+  var validatePayment = function(method) {
+    var valid = true;
+    switch (method) {
+      case 'pos_chip_pin2':
+        if (jQuery("#pos_chip_pin2 #generate_order_id:visible").length) {
+          APP.showNotice(pos_i18n[59], 'error');
+          valid = false;
+        }
+        break;
+      case 'pos_chip_pin3':
+        if (jQuery("#pos_chip_pin3 #generate_order_id:visible").length) {
+          APP.showNotice(pos_i18n[59], 'error');
+          valid = false;
+        }
+        break;
+    }
+    return valid && functions.validatePayment(method);
+  };
+
+  var createOrder = function(paid, paymentSense) {
+    CUSTOMER.additional_fields["card_payment_data"] = lastPaymentData;
+    functions.createOrder(paid, paymentSense);
+    lastPaymentData = null;
+  };
+
+  window.addEventListener('message', function(e) {
+    debugger;
+    if (e.origin == window.origin) {
+      if (e.data.message == 'pay_ok') {
+        lastPaymentData = e.data.data;
+        document.querySelector('#modal-order_payment .go_payment').click();
+      }
+    }
+  });
+
+  functions.search_customer_wc_3 = APP.search_customer_wc_3;
   functions.set_default_data = CUSTOMER.set_default_data;
   functions.WC_Coupon = WC_Coupon;
+  functions.validatePayment = ADDONS.validatePayment;
+  functions.createOrder = APP.createOrder;
 
   APP.search_customer_wc_3 = search_customer_wc_3;
+  APP.createOrder = createOrder;
   CUSTOMER.set_default_data = set_default_data;
+  ADDONS.validatePayment = validatePayment;
   WC_Coupon = My_WC_Coupon;
 });

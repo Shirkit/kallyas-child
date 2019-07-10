@@ -76,10 +76,124 @@
 	content: 'Pago / Troco' !important;
 }
 
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate span,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate span {
+    font-size: 120%;
+    color: #555;
+    display: block;
+    line-height: 42px;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_label, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate span,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_label, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate span {
+    padding: 13px 22px;
+    line-height: 42px;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_label,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_label {
+    text-align: right;
+    background: #f8f8f8;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 90%;
+    text-transform: uppercase;
+    border-left: 0;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div {
+    width: 50%;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate {
+    border-left: 1px solid #e5e5e5;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div {
+    width: 50%;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id {
+    width: 100%;
+    display: inline-flex;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a {
+    background: #fcfcfc;
+    cursor: pointer;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a:hover,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a:hover {
+    background: #f8f8f8;
+    color: #23282d;
+}
+
+.wrapper-cancel-chip-pin {
+	display: block;
+	padding: 10px;
+	text-align: center;
+}
+
+.cancel-pos-chip-pin {
+	display: block;
+  margin: 10px auto;
+  background: #ff5656;
+  color: white;
+  font-size: 1.3em;
+  padding: 10px;
+  height: auto;
+  line-height: 1em;
+}
+
+.wrapper-cancel-chip-pin {
+	padding: 10lx
+}
+
+.wrapper-cancel-chip-pin .cancel-pos-chip-pin {
+	display: block;
+	margin: 0 auto;
+	font-size: 1.2em;
+}
+
 /* Tela de Produto */
 
 #modal-add_custom_product .add_custom_product_meta, #modal-add_custom_product .product_type, #modal-add_custom_product #add_custom_product_meta {
 	display: none !important;
+}
+
+#modal-order_payment .md-content .payment_box .try_again-chip-pin {
+	height: 40px;
+	border: none;
+	cursor: pointer;
+	background: #e0e0e0;
+	font-weight: normal;
+	box-shadow: none;
+	text-shadow: none;
+	color: #555;
+	padding: 0 24px;
+	vertical-align: middle;
+	line-height: 40px;
+	font-size: 125%;
+	border-radius: 5px;
+	-webkit-appearance: none;
+	display: block;
+	margin: 0 auto 1em;
+}
+
+#modal-order_payment .md-content .payment_box .try_again-chip-pin:hover {
+	color: #fff;
+	background: #555 !important;
+	border-color: #555 !important;
+	cursor: pointer;
+	outline: 0;
 }
 
 /* Tela de Desconto */
@@ -137,4 +251,11 @@
 
 .hidden-category {
 	display: none !important;
+}
+
+/* Notices */
+
+#toast-container .toast-message:before {
+	content: ' ';
+	height: 1em;
 }
