@@ -214,7 +214,6 @@ jQuery(document).ready(function($) {
   };
 
   window.addEventListener('message', function(e) {
-    debugger;
     if (e.origin == window.origin) {
       if (e.data.message == 'pay_ok') {
         lastPaymentData = e.data.data;

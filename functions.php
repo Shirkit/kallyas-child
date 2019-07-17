@@ -6,7 +6,7 @@
  * WooCommerce API
  * ======================================================== */
 
- add_action('valid_pagseguro_assinaturas_ipn_request', 'orquidario_woocommerce_api_pagseguro_notification_handler', 100, 1);
+add_action('valid_pagseguro_assinaturas_ipn_request', 'orquidario_woocommerce_api_pagseguro_notification_handler', 100, 1);
 function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
 {
     if ('transaction' == $_POST['notificationType']) {
@@ -133,6 +133,17 @@ function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
  * Integrations with WebmaniaBR
  * ======================================================== */
 
+// Fazer com que os pedidos do POS sejam vistos pelo WebmaniaBR
+ add_action ('woocommerce_order_status_pending_to_completed', 'orquidario_woocommerce_order_status_pending_to_completed', 10, 1);
+ function orquidario_woocommerce_order_status_pending_to_completed($id) {
+ 	$order = wc_get_order($id);
+ 	if ($order->get_created_via() == 'POS') {
+    if (class_exists('WooCommerceNFe')) {
+      WooCommerceNFe::instance()->emitirNFeAutomaticamente($id);
+    }
+ 	}
+}
+
 /*
 
 Possíveis coisas:
@@ -143,9 +154,14 @@ Possíveis coisas:
 */
 
 // TODO: a condição para ser NFC-e tem que ser baseada na caixa que está sendo usado
-add_filter('webmaniabr_modelo_nota', 'orquidario_webmaniabr_modelo_nota', 10, 1);
-function orquidario_($tipo, $post_id)
+// NOTE: se retornar algo sem ser 'nfe' ou 'nfce' não vai emitir a nota
+add_filter('webmaniabr_modelo_nota', 'orquidario_webmaniabr_modelo_nota', 10, 2);
+function orquidario_webmaniabr_modelo_nota($tipo, $post_id)
 {
+    $order = wc_get_order($post_id);
+    $register_id = get_post_meta($post_id, 'wc_pos_id_register', true);
+    $register = WC_Pos_Registers::instance()->get_register_name_by_id($register_id);
+    error_log(print_r($register, true));
     if (get_post_meta($post_id, 'wc_pos_order_type', true) !== '') {
         $tipo = 'nfce';
     }
@@ -153,7 +169,7 @@ function orquidario_($tipo, $post_id)
 }
 
 // TODO: a condição para a modalidade de frete é baseada em que? Se for NFC-e apenas?
-add_filter('webmaniabr_pedido_modalidade_frete', 'orquidario_webmaniabr_pedido_modalidade_frete', 10, 5);
+//add_filter('webmaniabr_pedido_modalidade_frete', 'orquidario_webmaniabr_pedido_modalidade_frete', 10, 5);
 function orquidario_webmaniabr_pedido_modalidade_frete($codigo, $modalidade, $modelo, $post_id, $order)
 {
     if ((!$modalidade || $modalidade == 'null' || $modalidade = '') && $modelo == 2) {
@@ -203,35 +219,35 @@ function orquidario_webmaniabr_pedido_bandeira($bandeira, $post_id, $order)
 {
     $data = get_post_meta($post_id, 'card_payment_data', true);
     if (isset($data['cardBrand'])) {
-      if (stripos($data['cardBrand'], 'VISA') !== false) {
-        return '01';
-      } else if (stripos($data['cardBrand'], 'MASTER') !== false) {
-        return '02';
-      } else if (stripos($data['cardBrand'], 'ELECTRON') !== false) {
-        return '01';
-      } else if (stripos($data['cardBrand'], 'MAESTRO') !== false) {
-        return '02';
-      } else if (stripos($data['cardBrand'], 'ELO') !== false) {
-        return '06';
-      } else if (stripos($data['cardBrand'], 'HIPERCARD') !== false) {
-        return '07';
-      }  else if (stripos($data['cardBrand'], 'AMEX') !== false) {
-        return '03';
-      }  else if (stripos($data['cardBrand'], 'AMERICAN') !== false) {
-        return '03';
-      }  else if (stripos($data['cardBrand'], 'SOROCRED') !== false) {
-        return '04';
-      }  else if (stripos($data['cardBrand'], 'CLUB') !== false) {
-        return '05';
-      }  else if (stripos($data['cardBrand'], 'DINER') !== false) {
-        return '05';
-      } else if (stripos($data['cardBrand'], 'AURA') !== false) {
-        return '08';
-      } else if (stripos($data['cardBrand'], 'CABAL') !== false) {
-        return '09';
-      } else {
-        return '99';
-      }
+        if (stripos($data['cardBrand'], 'VISA') !== false) {
+            return '01';
+        } elseif (stripos($data['cardBrand'], 'MASTER') !== false) {
+            return '02';
+        } elseif (stripos($data['cardBrand'], 'ELECTRON') !== false) {
+            return '01';
+        } elseif (stripos($data['cardBrand'], 'MAESTRO') !== false) {
+            return '02';
+        } elseif (stripos($data['cardBrand'], 'ELO') !== false) {
+            return '06';
+        } elseif (stripos($data['cardBrand'], 'HIPERCARD') !== false) {
+            return '07';
+        } elseif (stripos($data['cardBrand'], 'AMEX') !== false) {
+            return '03';
+        } elseif (stripos($data['cardBrand'], 'AMERICAN') !== false) {
+            return '03';
+        } elseif (stripos($data['cardBrand'], 'SOROCRED') !== false) {
+            return '04';
+        } elseif (stripos($data['cardBrand'], 'CLUB') !== false) {
+            return '05';
+        } elseif (stripos($data['cardBrand'], 'DINER') !== false) {
+            return '05';
+        } elseif (stripos($data['cardBrand'], 'AURA') !== false) {
+            return '08';
+        } elseif (stripos($data['cardBrand'], 'CABAL') !== false) {
+            return '09';
+        } else {
+            return '99';
+        }
     }
     return $bandeira;
 }
@@ -241,7 +257,7 @@ function orquidario_webmaniabr_pedido_autorizacao($autorizacao, $post_id, $order
 {
     $data = get_post_meta($post_id, 'card_payment_data', true);
     if (isset($data['hostNsu'])) {
-      return $data['hostNSu'];
+        return $data['hostNSu'];
     }
     return $autorizacao;
 }
@@ -424,7 +440,7 @@ function woocommerce_coupon_is_valid($valid, $coupon, $discount)
 
 function woocommerce_coupon_is_valid_for_cart($valid, $coupon)
 {
-    if (strpos($coupon->get_code(), 'autorevenda') === 0) {
+    if (strpos($coupon->get_code(), 'autorevenda') === 0 && !is_null(WC()->cart)) {
         return false;
     }
     return $valid;
@@ -432,7 +448,7 @@ function woocommerce_coupon_is_valid_for_cart($valid, $coupon)
 
 function woocommerce_coupon_is_valid_for_product($valid, $product, $coupon, $values)
 {
-    if (strpos($coupon->get_code(), 'autorevenda') === 0) {
+    if (strpos($coupon->get_code(), 'autorevenda') === 0 && !is_null(WC()->cart)) {
         return false;
     }
     return $valid;
