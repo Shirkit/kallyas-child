@@ -217,7 +217,13 @@ jQuery(document).ready(function($) {
     if (e.origin == window.origin) {
       if (e.data.message == 'pay_ok') {
         lastPaymentData = e.data.data;
-        document.querySelector('#modal-order_payment .go_payment').click();
+        // Caso a operação no cartão acabe antes de obter a resposta do número do pedido
+        var nTimer = setInterval(function() {
+          if (jQuery('#modal-order_payment form.woocommerce-checkout .popup_section:visible span').length > 0) {
+            document.querySelector('#modal-order_payment .go_payment').click();
+            clearInterval(nTimer);
+          }
+        }, 100);
       }
     }
   });

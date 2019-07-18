@@ -161,7 +161,6 @@ function orquidario_webmaniabr_modelo_nota($tipo, $post_id)
     $order = wc_get_order($post_id);
     $register_id = get_post_meta($post_id, 'wc_pos_id_register', true);
     $register = WC_Pos_Registers::instance()->get_register_name_by_id($register_id);
-    error_log(print_r($register, true));
     if (get_post_meta($post_id, 'wc_pos_order_type', true) !== '') {
         $tipo = 'nfce';
     }
