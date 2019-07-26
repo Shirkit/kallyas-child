@@ -8,15 +8,17 @@
 
 add_action('pos_admin_print_scripts', 'orquidario_pos_admin_print_scripts');
 
-function orquidario_pos_admin_print_scripts() {
-  ?>
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+function orquidario_pos_admin_print_scripts()
+{
+    ?>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <?php
 }
 
 add_action('wc_pos_footer_scripts', 'modal_printer_select');
-function modal_printer_select() {
-  ?>
+function modal_printer_select()
+{
+    ?>
   <div class="md-modal md-dynamicmodal md-menu md-close-by-overlay md-register" id="modal-printer_select">
     <div class="md-content">
       <h1>Seleção de Impressora<span class="md-close"></span></h1>
@@ -163,14 +165,15 @@ function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
 
 // Fazer com que os pedidos do POS sejam vistos pelo WebmaniaBR
  //add_action ('woocommerce_order_status_pending_to_completed', 'orquidario_woocommerce_order_status_pending_to_completed', 10, 1);
- function orquidario_woocommerce_order_status_pending_to_completed($id) {
- 	$order = wc_get_order($id);
- 	if ($order->get_created_via() == 'POS') {
-    if (class_exists('WooCommerceNFe')) {
-      WooCommerceNFe::instance()->emitirNFeAutomaticamente($id);
-    }
- 	}
-}
+ function orquidario_woocommerce_order_status_pending_to_completed($id)
+ {
+     $order = wc_get_order($id);
+     if ($order->get_created_via() == 'POS') {
+         if (class_exists('WooCommerceNFe')) {
+             WooCommerceNFe::instance()->emitirNFeAutomaticamente($id);
+         }
+     }
+ }
 
 /*
 
