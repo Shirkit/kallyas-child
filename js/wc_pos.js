@@ -220,6 +220,7 @@ jQuery(document).ready(function($) {
         // Caso a operação no cartão acabe antes de obter a resposta do número do pedido
         var nTimer = setInterval(function() {
           if (jQuery('#modal-order_payment form.woocommerce-checkout .popup_section:visible span').length > 0) {
+            window.lastOrderId = jQuery('#modal-order_payment form.woocommerce-checkout .popup_section:visible span').text();
             document.querySelector('#modal-order_payment .go_payment').click();
             clearInterval(nTimer);
           }

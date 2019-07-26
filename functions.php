@@ -6,6 +6,34 @@
  * WooCommerce API
  * ======================================================== */
 
+add_action('pos_admin_print_scripts', 'orquidario_pos_admin_print_scripts');
+
+function orquidario_pos_admin_print_scripts() {
+  ?>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+  <?php
+}
+
+add_action('wc_pos_footer_scripts', 'modal_printer_select');
+function modal_printer_select() {
+  ?>
+  <div class="md-modal md-dynamicmodal md-menu md-close-by-overlay md-register" id="modal-printer_select">
+    <div class="md-content">
+      <h1>Seleção de Impressora<span class="md-close"></span></h1>
+      <p class="form-row form-row-wide" id="selected_printer_field" style="margin: 0; " >
+        <label for="selected_printer" style="font-variant: all-petite-caps; width: calc(100% - 12px); padding: 12px 0; padding-left: 12px; color: #757575;"><span class="dashicons printing-receipt-icon"></span> - Selecione a impressora</label>
+        <span>
+          <select name="selected_printer" id="selected_printer" class="select wc-ecfb-select"></select>
+        </span>
+      </p>
+      <div class="wrap-button">
+        <button class="button button-primary wp-button-large alignright" type="button" id="save_selected_printer">Salvar</button>
+      </div>
+    </div>
+  </div>
+  <?php
+}
+
 add_action('valid_pagseguro_assinaturas_ipn_request', 'orquidario_woocommerce_api_pagseguro_notification_handler', 100, 1);
 function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
 {
@@ -134,7 +162,7 @@ function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
  * ======================================================== */
 
 // Fazer com que os pedidos do POS sejam vistos pelo WebmaniaBR
- add_action ('woocommerce_order_status_pending_to_completed', 'orquidario_woocommerce_order_status_pending_to_completed', 10, 1);
+ //add_action ('woocommerce_order_status_pending_to_completed', 'orquidario_woocommerce_order_status_pending_to_completed', 10, 1);
  function orquidario_woocommerce_order_status_pending_to_completed($id) {
  	$order = wc_get_order($id);
  	if ($order->get_created_via() == 'POS') {

@@ -184,7 +184,7 @@
 	font-size: 125%;
 	border-radius: 5px;
 	-webkit-appearance: none;
-	display: block;
+	display: none;
 	margin: 0 auto 1em;
 }
 
@@ -251,6 +251,12 @@
 
 .hidden-category {
 	display: none !important;
+}
+
+#wc-pos-actions #printer_select::before {
+	content: '\e900';
+	font-family: aepos;
+	margin-right: 10px;
 }
 
 /* Notices */
