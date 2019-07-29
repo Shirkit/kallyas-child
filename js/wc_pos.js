@@ -221,6 +221,7 @@ jQuery(document).ready(function($) {
         var nTimer = setInterval(function() {
           if (jQuery('#modal-order_payment form.woocommerce-checkout .popup_section:visible span').length > 0) {
             window.lastOrderId = jQuery('#modal-order_payment form.woocommerce-checkout .popup_section:visible span').text();
+            window.lastOrderTotal = CART.total;
             document.querySelector('#modal-order_payment .go_payment').click();
             clearInterval(nTimer);
           }

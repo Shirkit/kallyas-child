@@ -21,13 +21,27 @@ function modal_printer_select()
     ?>
   <div class="md-modal md-dynamicmodal md-menu md-close-by-overlay md-register" id="modal-printer_select">
     <div class="md-content">
-      <h1>Seleção de Impressora<span class="md-close"></span></h1>
-      <p class="form-row form-row-wide" id="selected_printer_field" style="margin: 0; " >
-        <label for="selected_printer" style="font-variant: all-petite-caps; width: calc(100% - 12px); padding: 12px 0; padding-left: 12px; color: #757575;"><span class="dashicons printing-receipt-icon"></span> - Selecione a impressora</label>
-        <span>
-          <select name="selected_printer" id="selected_printer" class="select wc-ecfb-select"></select>
-        </span>
-      </p>
+      <h1>Configurações de Impressão<span class="md-close"></span></h1>
+      <div class="md-content-wrapper">
+        <p class="form-row form-row-wide" id="selected_printer_field" style="margin: 0; " >
+          <label for="selected_printer" style="font-variant: all-petite-caps; width: calc(100% - 12px); padding: 12px 0; padding-left: 12px; color: #757575;"><span class="dashicons printing-receipt-icon"></span> - Selecione a impressora</label>
+          <span>
+            <select name="selected_printer" id="selected_printer" class="select wc-ecfb-select"></select>
+          </span>
+        </p>
+        <table id="past_orders">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Valor</th>
+              <th>Hora</th>
+              <th>-</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
       <div class="wrap-button">
         <button class="button button-primary wp-button-large alignright" type="button" id="save_selected_printer">Salvar</button>
       </div>
