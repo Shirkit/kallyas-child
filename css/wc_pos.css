@@ -43,8 +43,12 @@
   }
 }
 
-#modal-order_payment .pos_end_toggles {
-  /*display: none !important;*/
+#modal-order_payment .pos_end_toggles .bootstrap-switch-id-payment_print_gift_receipt, #modal-order_payment .pos_end_toggles .bootstrap-switch-id-payment_terms {
+  display: none !important;
+}
+
+.bootstrap-switch-id-payment_emit_nfce {
+  margin-right: 12px;
 }
 
 #modal-order_payment .payment_box>p {

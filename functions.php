@@ -184,7 +184,7 @@ function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
      $order = wc_get_order($id);
      if ($order->get_created_via() == 'POS') {
          if (class_exists('WooCommerceNFe')) {
-             WooCommerceNFe::instance()->emitirNFeAutomaticamente($id);
+             WooCommerceNFe::instance()->emitirNFeAutomaticamenteOnStatusChange($id);
          }
      }
  }
@@ -301,7 +301,7 @@ function orquidario_webmaniabr_pedido_autorizacao($autorizacao, $post_id, $order
 {
     $data = get_post_meta($post_id, 'card_payment_data', true);
     if (isset($data['hostNsu'])) {
-        return $data['hostNSu'];
+        return $data['hostNsu'];
     }
     return $autorizacao;
 }
@@ -673,6 +673,85 @@ if (! function_exists('custom_zn_login_text')) {
             echo '</a></li></ul>';
         }
     }
+}
+
+/* ========================================================
+ * Permissions management
+ * ======================================================== */
+
+add_action('admin_init', 'disallowed_admin_pages');
+ function disallowed_admin_pages()
+ {
+     global $pagenow;
+
+     # Check current admin page.
+     if (!current_user_can('publish_shop_orders') && $pagenow == 'post-new.php' && isset($_GET['post_type']) && $_GET['post_type'] == 'shop_order') {
+         wp_redirect(admin_url('/edit.php?post_type=shop_order'), 301);
+         exit;
+     }
+ }
+
+add_action('admin_head', 'custom_hide_options');
+function custom_hide_options()
+{
+    global $pagenow;
+
+
+    // HIDE "New Order" button when current user don't have 'manage_options' admin user role capability
+    if (! current_user_can('publish_shop_orders')):
+    ?>
+    <style>
+      .post-type-shop_order #wpbody-content a.page-title-action,
+      a[href="post-new.php?post_type=shop_order"],
+      #wpadminbar .menupop a[href$="post-new.php?post_type=shop_order"] {
+        display: none !important;
+      }
+    </style>
+    <?php
+
+      if ($pagenow == 'post.php' && isset($_GET['action']) && $_GET['action'] == 'edit'):
+      ?>
+      <style>
+      #woocommerce-order-downloads,
+      #postcustom,
+      #woocommernfe_transporte,
+      .edit_address,
+      label[for="order_status"],
+      .add-items .add-line-item,
+      .add-items .add-coupon,
+      #woocommerce-order-actions .order_actions #actions {
+        display: none !important;
+      }
+      </style>
+      <?php
+      endif; ?>
+    <?php
+
+    endif;
+}
+
+add_action('admin_footer', 'custom_hide_options2');
+function custom_hide_options2()
+{
+    global $pagenow;
+
+
+    // HIDE "New Order" button when current user don't have 'manage_options' admin user role capability
+    if (! current_user_can('publish_shop_orders') && $pagenow == 'post.php' && isset($_GET['action']) && $_GET['action'] == 'edit'):
+  ?>
+  <script>
+  var jQueryTimer = setInterval(function() {
+    if (window.jQuery) {
+      clearInterval(jQueryTimer);
+      // Disabling the input fields bugs out when updating, reseting the Payment Status to Pending Payment
+      /*jQuery('.panel-wrap.woocommerce select').prop('disabled', true);
+      jQuery('.panel-wrap.woocommerce input').prop('disabled', true);
+      jQuery('.order_actions select').prop('disabled', true);*/
+    }
+  }, 100);
+  </script>
+  <?php
+  endif;
 }
 
 /* ========================================================
