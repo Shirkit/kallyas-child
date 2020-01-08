@@ -178,16 +178,35 @@ function orquidario_woocommerce_api_pagseguro_notification_handler($posted)
  * ======================================================== */
 
 // Fazer com que os pedidos do POS sejam vistos pelo WebmaniaBR
- //add_action ('woocommerce_order_status_pending_to_completed', 'orquidario_woocommerce_order_status_pending_to_completed', 10, 1);
- function orquidario_woocommerce_order_status_pending_to_completed($id)
- {
-     $order = wc_get_order($id);
-     if ($order->get_created_via() == 'POS') {
-         if (class_exists('WooCommerceNFe')) {
-             WooCommerceNFe::instance()->emitirNFeAutomaticamenteOnStatusChange($id);
-         }
+//add_action ('woocommerce_order_status_pending_to_completed', 'orquidario_woocommerce_order_status_pending_to_completed', 10, 1);
+function orquidario_woocommerce_order_status_pending_to_completed($id)
+{
+   $order = wc_get_order($id);
+   if ($order->get_created_via() == 'POS') {
+       if (class_exists('WooCommerceNFe')) {
+           WooCommerceNFe::instance()->emitirNFeAutomaticamenteOnStatusChange($id);
+       }
+   }
+}
+
+// TODO: verificar quando, mesmo quando não solicitado pelo Cashier, se decide forçar a emissão ou não.
+// NOTE: aqui vai dar override se a emissão automática estiver desabilitada
+// NOTE: por exemplo, se for NFC-e e for no cartão, tem que emitir em TODOS os casos
+add_filter('webmaniabr_emissao_automatica', 'orquidario_webmaniabr_emissao_automatica', 10, 3);
+function orquidario_webmaniabr_emissao_automatica($force, $option, $post_id)
+{
+   if (!$force && get_post_type( $order_id ) == 'shop_order') {
+     $order = wc_get_order($post_id);
+     $register_id = get_post_meta($post_id, 'wc_pos_id_register', true);
+     $register = WC_Pos_Registers::instance()->get_register_name_by_id($register_id);
+     if (get_post_meta($post_id, 'wc_pos_order_type', true) !== '') {
+         $data = get_post_meta($post_id, 'card_payment_data', true);
+         if ($data)
+          return true;
      }
- }
+   }
+   return $force;
+}
 
 /*
 
