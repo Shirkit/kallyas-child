@@ -236,24 +236,27 @@
 }
 
 /* Tela de Impressoras */
-
 #past_orders {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
 }
+
 #past_orders td, #past_orders th {
   padding: 0 !important;
   width: 25%;
 }
+
 #past_orders thead {
   background: #f8f8f8;
 }
+
 #past_orders thead th {
   font-weight: bold;
   color: #000000;
   text-align: center;
 }
+
 #past_orders .wrap-button {
   padding: 0 !important;
 }
