@@ -1,24 +1,23 @@
-.quick-edit-row.inline-edit-product {
-}
+.quick-edit-row.inline-edit-product {}
 
 .quick-edit-row.inline-edit-product .inline-edit-date {
-	display: none;
+  display: none;
 }
 
 .quick-edit-row.inline-edit-product .atum_location-checklist {
-	display: none;
+  display: none;
 }
 
 .quick-edit-row.inline-edit-product .dimension_fields {
-	display: none;
+  display: none;
 }
 
 .quick-edit-row.inline-edit-product .manage_stock_field {
-	display: none !important;
+  display: none !important;
 }
 
 .quick-edit-row.inline-edit-product #woocommerce-fields .inline-edit-group:nth-child(6), .quick-edit-row.inline-edit-product #woocommerce-fields .inline-edit-group:nth-child(7) {
-	display: none;
+  display: none;
 }
 
 // Hide confusing menus for shop managers
@@ -31,7 +30,6 @@
 .pos_manager #menu-posts-documentation,
 .pos_manager #menu-posts-zn_layout,
 .pos_manager #menu-posts-znpb_template_mngr,
-.pos_manager #toplevel_page_ai1wm_export
-{
-	display: none;
+.pos_manager #toplevel_page_ai1wm_export {
+  display: none;
 }

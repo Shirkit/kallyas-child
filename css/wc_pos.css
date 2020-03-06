@@ -1,153 +1,341 @@
-.tr_order_coupon[data-coupon^="autorevenda"] {
-	display: none;
+.tr_order_coupon[data-coupon^="autorevenda"], .tr_order_coupon[data-coupon="revendedor"] span.span_clear_order_coupon {
+  display: none;
 }
 
 .wrap-coupons-buttons {
-	display: flex;
-	padding: 3%;
+  display: flex;
+  padding: 3%;
 }
+
 .wrap-coupons-buttons button.button.button-primary.wp-button-large {
-	height: 40px;
-	border: none;
-	background: #e0e0e0;
-	font-weight: normal;
-	box-shadow: none;
-	text-shadow: none;
-	color: #555;
-	padding: 0 24px;
-	vertical-align: middle;
-	line-height: 40px;
-	font-size: 125%;
-	border-radius: 5px;
-	-webkit-appearance: none;
+  height: 40px;
+  border: none;
+  background: #e0e0e0;
+  font-weight: normal;
+  box-shadow: none;
+  text-shadow: none;
+  color: #555;
+  padding: 0 24px;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 125%;
+  border-radius: 5px;
+  -webkit-appearance: none;
 }
 
 /* Tela de Pagamento */
-
-
 @media only screen and (max-height: 600px) {
-	#modal-order_payment {
-		min-height: unset !important;
-	}
+  #modal-order_payment {
+    min-height: unset !important;
+  }
 
-	#modal-order_payment .bootstrap-switch .bootstrap-switch-label {
-		padding: 0 !important;
-	}
+  #modal-order_payment .bootstrap-switch .bootstrap-switch-label {
+    padding: 0 !important;
+  }
 
-	#inline_amount_tendered .amount_pay_keypad .keypad-key, #inline_amount_tendered .amount_pay_keypad .keypad-back, #inline_amount_tendered .amount_pay_keypad .keypad-clear, .amount_pay_keypad .keypad-tendered_1, .amount_pay_keypad .keypad-tendered_2, .amount_pay_keypad .keypad-tendered_3, .amount_pay_keypad .keypad-tendered_4 {
-		height: 14vh !important;
-	}
+  #inline_amount_tendered .amount_pay_keypad .keypad-key, #inline_amount_tendered .amount_pay_keypad .keypad-back, #inline_amount_tendered .amount_pay_keypad .keypad-clear, .amount_pay_keypad .keypad-tendered_1, .amount_pay_keypad .keypad-tendered_2, .amount_pay_keypad .keypad-tendered_3, .amount_pay_keypad .keypad-tendered_4 {
+    height: 14vh !important;
+  }
 
-	#inline_amount_tendered .amount_pay_keypad .keypad-close {
-		height: 28vh !important;
-		padding-top: 0 !important;
-	}
+  #inline_amount_tendered .amount_pay_keypad .keypad-close {
+    height: 28vh !important;
+    padding-top: 0 !important;
+  }
 }
 
-#modal-order_payment .pos_end_toggles {
-	/*display: none !important;*/
+#modal-order_payment .pos_end_toggles .bootstrap-switch-id-payment_print_gift_receipt, #modal-order_payment .pos_end_toggles .bootstrap-switch-id-payment_terms {
+  display: none !important;
 }
 
-#modal-order_payment .payment_box > p {
-	/*display: none !important;*/
+.bootstrap-switch-id-payment_emit_nfce {
+  margin-right: 12px;
+}
+
+#modal-order_payment .payment_box>p {
+  /*display: none !important;*/
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on, .bootstrap-switch .bootstrap-switch-handle-off, .bootstrap-switch .bootstrap-switch-label {
+  font-size: 13px;
 }
 
 #modal-order_payment .keypad-special.keypad-tendered_1, #modal-order_payment .keypad-special.keypad-tendered_2, #modal-order_payment .keypad-special.keypad-tendered_3, #modal-order_payment .keypad-special.keypad-tendered_4 {
-	display: none !important;
+  display: none !important;
 }
 
 #modal-order_payment .keypad-row {
-	text-align: left !important;
+  text-align: left !important;
 }
 
 #modal-order_payment .go_payment {
-	background: #00c853 !important;
+  background: #00c853 !important;
 }
 
 #modal-order_payment .go_payment:hover {
-    background: #009624 !important;
+  background: #009624 !important;
 }
 
 #modal-order_payment .amount_tendered:first-child {
-	display: none !important;
+  display: none !important;
 }
 
 #modal-order_payment .amount_tendered:first-child::after {
-	content: 'Pago / Troco' !important;
+  content: 'Pago / Troco' !important;
 }
 
-#modal-order_payment .media-frame-menu .payment_method_transfer_orquidario::before {
-    content: url(transfer.svg);
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate span,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate span {
+  font-size: 120%;
+  color: #555;
+  display: block;
+  line-height: 42px;
 }
 
-#modal-order_payment .media-frame-menu .payment_method_cheque_orquidario::before {
-    content: url(cheque.svg);
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_label, #modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate span,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_label, #modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate span {
+  padding: 13px 22px;
+  line-height: 42px;
 }
 
-#modal-order_payment .media-frame-menu .payment_method_consignado_orquidario::before {
-	margin-top: -3px;
-    content: url(pay.svg);
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_label,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_label {
+  text-align: right;
+  background: #f8f8f8;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 90%;
+  text-transform: uppercase;
+  border-left: 0;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div {
+  width: 50%;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id .pos_chip_pin_order_generate,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id .pos_chip_pin_order_generate {
+  border-left: 1px solid #e5e5e5;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div {
+  width: 50%;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id {
+  width: 100%;
+  display: inline-flex;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a {
+  background: #fcfcfc;
+  cursor: pointer;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin2 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a:hover,
+#modal-order_payment .payment_method_pos_chip_pin3 .pos_chip_pin_order_id div.pos_chip_pin_order_generate a:hover {
+  background: #f8f8f8;
+  color: #23282d;
+}
+
+.wrapper-cancel-chip-pin {
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
+
+.cancel-pos-chip-pin {
+  display: block;
+  margin: 10px auto;
+  background: #ff5656;
+  color: white;
+  font-size: 1.3em;
+  padding: 10px;
+  height: auto;
+  line-height: 1em;
+}
+
+/*.wrapper-cancel-chip-pin {
+  padding: 10lx
+}*/
+
+.wrapper-cancel-chip-pin .cancel-pos-chip-pin {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.2em;
 }
 
 /* Tela de Produto */
-
 #modal-add_custom_product .add_custom_product_meta, #modal-add_custom_product .product_type, #modal-add_custom_product #add_custom_product_meta {
-	display: none !important;
+  display: none !important;
+}
+
+#modal-order_payment .md-content .payment_box .try_again-chip-pin {
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  background: #e0e0e0;
+  font-weight: normal;
+  box-shadow: none;
+  text-shadow: none;
+  color: #555;
+  padding: 0 24px;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 125%;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  display: none;
+  margin: 0 auto 1em;
+}
+
+#modal-order_payment .md-content .payment_box .try_again-chip-pin:hover {
+  color: #fff;
+  background: #555 !important;
+  border-color: #555 !important;
+  cursor: pointer;
+  outline: 0;
 }
 
 /* Tela de Desconto */
 @media only screen and (max-height: 600px) {
-	#modal-order_discount {
-		min-height: unset !important;
-		top: 57% !important;
-	}
+  #modal-order_discount {
+    min-height: unset !important;
+    top: 57% !important;
+  }
 
-	#inline_order_discount .keypad-key, #inline_order_discount .keypad-special, #inline_amount_tendered .keypad-key, #inline_amount_tendered .keypad-close, #inline_amount_tendered .keypad-back, #inline_amount_tendered .keypad-clear, #custom_fee_value .keypad-key, #custom_fee_value .keypad-special, #modal-missing-attributes .inline_quantity .quantity_keypad button {
-		height: 60px !important;
-	}
+  #inline_order_discount .keypad-key, #inline_order_discount .keypad-special, #inline_amount_tendered .keypad-key, #inline_amount_tendered .keypad-close, #inline_amount_tendered .keypad-back, #inline_amount_tendered .keypad-clear, #custom_fee_value .keypad-key, #custom_fee_value .keypad-special, #modal-missing-attributes .inline_quantity .quantity_keypad button {
+    height: 60px !important;
+  }
 
-	#inline_order_discount .keypad-close {
-		height: 120px !important;
-		padding-top: 50px !important;
-	}
+  #inline_order_discount .keypad-close {
+    height: 120px !important;
+    padding-top: 50px !important;
+  }
 }
 
 #modal-order_discount button.keypad-special:last-child {
-	background: #eee !important;
-
+  background: #eee !important;
 }
 
 #modal-order_discount button.active {
-	background: #c3fcd4 !important;
+  background: #c3fcd4 !important;
 }
 
 #modal-order_discount .wrap-custom-button-discount {
-	position: relative !important;
+  position: relative !important;
 }
 
 #modal-order_discount .wrap-custom-button-discount button {
-	float: none !important;
+  float: none !important;
+}
+
+/* Tela de Impressoras */
+#past_orders {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+#past_orders td, #past_orders th {
+  padding: 0 !important;
+  width: 25%;
+}
+
+#past_orders thead {
+  background: #f8f8f8;
+}
+
+#past_orders thead th {
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+}
+
+#past_orders .wrap-button {
+  padding: 0 !important;
+}
+
+#modal-printer_select table {
+  margin-top: 20px;
+}
+
+#modal-printer_select #past_orders {
+  float: none !important;
+}
+
+#past_orders .wrap-button {
+  padding: 0 !important;
+}
+
+#past_orders .wrap-button button {
+  float: none !important;
 }
 
 /* Tela Geral */
-
 #edit_wc_pos_registers #add_shipping_to_register {
-	display: none !important;
+  display: none !important;
 }
 
 #add_customer_to_register {
-	font-size: 0;
+  font-size: 0;
 }
 
 #add_customer_to_register::before, #add_customer_to_register::after {
-	font-size: 13px;
+  font-size: 13px;
 }
 
 #add_customer_to_register::after {
-	content: 'Cliente';
-	vertical-align: middle;
+  content: 'Cliente';
+  vertical-align: middle;
 }
 
 .hidden-category {
-	display: none !important;
+  display: none !important;
+}
+
+#wc-pos-actions #printer_select::before {
+  content: '\e900';
+  font-family: aepos;
+  margin-right: 10px;
+}
+
+/* Notices */
+#toast-container .toast-message:before {
+  content: ' ';
+  height: 1em;
+}
+
+#modal-order_payment .payment_box .pos_chip_pin_order_id .pos_chip_pin_order_generate a#generate_order_id {
+  font-size: 0;
+}
+
+#modal-order_payment .payment_box .pos_chip_pin_order_id .pos_chip_pin_order_generate a#generate_order_id::after {
+  font-size: initial;
+  content: 'Gerar código';
+}
+
+#modal-order_payment .payment_method_pos_chip_pin .pos_chip_pin_order_id .pos_chip_pin_order_generate a {
+}
+
+#modal-order_payment .payment_method_pos_chip_pin .pos_chip_pin_order_id .pos_chip_pin_order_generate a::after{
+}
+
+#modal-order_payment .payment_method_pos_chip_pin > p, #modal-order_payment .payment_method_pos_chip_pin2 > p, #modal-order_payment .payment_method_pos_chip_pin3 > p {
+  color: transparent;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin > p::before, #modal-order_payment .payment_method_pos_chip_pin2 > p::before {
+  content: "Clique no botão 'Gerar Código' acima para que o sistema processe a venda e automaticamente se comunique com a maquininha do PagSeguro."
+  color: inherit;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin3 > p::before {
+  content: "Não precisa clicar no botão 'Gerar código', simplesmente faça a venda na maquininha do valor a ser cobrado no cartão."
+  color: inherit;
 }

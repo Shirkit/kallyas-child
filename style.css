@@ -3,56 +3,56 @@ Theme Name:     Kallyas Child Theme
 Description:    Child theme for the Kallyas theme
 Author:         Shirkit
 Template:       kallyas
-Version:        1.1
+Version:        1.2
 GitHub Theme URI: https://github.com/Shirkit/kallyas-child
 Text Domain:  zn_framework
 */
 .zn-res-trigger.hide-bars::after {
-	display: none;
+  display: none;
 }
 
 .zn-res-trigger.hide-bars {
-	width: auto;
-	margin-right: 0;
-	transform: translateY(-3px);
+  width: auto;
+  margin-right: 0;
+  transform: translateY(-3px);
 }
 
-.main-nav.mainnav--active-uline > ul > li > a > span:after {
-	display: block;
-	content: '';
-	border-bottom: solid 3px currentColor;
-	transform: scaleX(0);
-	transition: transform 150ms ease-in-out;
+.main-nav.mainnav--active-uline>ul>li>a>span:after {
+  display: block;
+  content: '';
+  border-bottom: solid 3px currentColor;
+  transform: scaleX(0);
+  transition: transform 150ms ease-in-out;
 }
 
-.main-nav.mainnav--active-uline > ul > li > a > span:hover:after {
-	transform: scaleX(1);
+.main-nav.mainnav--active-uline>ul>li>a>span:hover:after {
+  transform: scaleX(1);
 }
 
 @media only screen and (min-width: 768px) {
-	.woocommerce .kallyas-wc-cols--3 ul.products li.product {
-		width:50% !important;
-	}
+  .woocommerce .kallyas-wc-cols--3 ul.products li.product {
+    width: 50% !important;
+  }
 
-	.woocommerce .kallyas-productlist-wrapper ul.products li.product:nth-child(3n+1) {
-		clear: none !important;
-	}
+  .woocommerce .kallyas-productlist-wrapper ul.products li.product:nth-child(3n+1) {
+    clear: none !important;
+  }
 }
 
-.tab-content > .active {
-    display: block !important;
+.tab-content>.active {
+  display: block !important;
 }
 
 .site-header, .site-header.style14 .site-header-top-wrapper {
-	background: #fff;
+  background: #fff;
 }
 
 @media only screen and (max-width: 767px) {
-	.site-header .site-logo, .logosize--contain .site-logo-img {
-		padding: 0;
-	}
+  .site-header .site-logo, .logosize--contain .site-logo-img {
+    padding: 0;
+  }
 }
 
-.main-nav > ul > .menu-item > a {
-	color: #337a78;
+.main-nav>ul>.menu-item>a {
+  color: #337a78;
 }
