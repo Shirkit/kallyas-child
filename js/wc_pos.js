@@ -30,12 +30,6 @@ jQuery(document).ready(function($) {
     jQuery(this).find('input[type=radio]')[0].checked = true;
   });
 
-  // Add requirement by QZ Signing proccess
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://cdn.rawgit.com/kjur/jsrsasign/c057d3447b194fa0a3fdcea110579454898e093d/jsrsasign-all-min.js';
-  document.head.appendChild(script);
-
   function deferQz(method) {
     if (window.qz) {
       method();
