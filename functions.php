@@ -527,8 +527,10 @@ function wc_poster_footer_child()
 		try {
 			$screen = get_current_screen();
 			if ($screen->id == 'pos_page') {
-				wp_enqueue_script("custom_modifications-js", get_stylesheet_directory_uri() . "/js/wc_pos.js", null, null, null);
 				wp_enqueue_style("custom_modifications-css", get_stylesheet_directory_uri() . "/css/wc_pos.css", null, null, null);
+				wp_enqueue_script("custom_modifications-js", get_stylesheet_directory_uri() . "/js/jsrsasign-all-min.js", null, null, null);
+				wp_enqueue_script("custom_modifications-js", get_stylesheet_directory_uri() . "/js/wc_pos.js", null, null, null);
+				wp_add_inline_script("custom_modifications-js", @file_get_contents(ABSPATH . "../private/keys.js"), 'before' );
 			}
 		} catch (Error $e) {
 			$logger = wc_get_logger();

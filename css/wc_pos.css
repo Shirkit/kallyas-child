@@ -1,4 +1,4 @@
-.tr_order_coupon[data-coupon^="autorevenda"] {
+.tr_order_coupon[data-coupon^="autorevenda"], .tr_order_coupon[data-coupon="revendedor"] span.span_clear_order_coupon {
   display: none;
 }
 
@@ -160,9 +160,9 @@
   line-height: 1em;
 }
 
-.wrapper-cancel-chip-pin {
+/*.wrapper-cancel-chip-pin {
   padding: 10lx
-}
+}*/
 
 .wrapper-cancel-chip-pin .cancel-pos-chip-pin {
   display: block;
@@ -309,4 +309,33 @@
 #toast-container .toast-message:before {
   content: ' ';
   height: 1em;
+}
+
+#modal-order_payment .payment_box .pos_chip_pin_order_id .pos_chip_pin_order_generate a#generate_order_id {
+  font-size: 0;
+}
+
+#modal-order_payment .payment_box .pos_chip_pin_order_id .pos_chip_pin_order_generate a#generate_order_id::after {
+  font-size: initial;
+  content: 'Gerar código';
+}
+
+#modal-order_payment .payment_method_pos_chip_pin .pos_chip_pin_order_id .pos_chip_pin_order_generate a {
+}
+
+#modal-order_payment .payment_method_pos_chip_pin .pos_chip_pin_order_id .pos_chip_pin_order_generate a::after{
+}
+
+#modal-order_payment .payment_method_pos_chip_pin > p, #modal-order_payment .payment_method_pos_chip_pin2 > p, #modal-order_payment .payment_method_pos_chip_pin3 > p {
+  color: transparent;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin > p::before, #modal-order_payment .payment_method_pos_chip_pin2 > p::before {
+  content: "Clique no botão 'Gerar Código' acima para que o sistema processe a venda e automaticamente se comunique com a maquininha do PagSeguro."
+  color: inherit;
+}
+
+#modal-order_payment .payment_method_pos_chip_pin3 > p::before {
+  content: "Não precisa clicar no botão 'Gerar código', simplesmente faça a venda na maquininha do valor a ser cobrado no cartão."
+  color: inherit;
 }

@@ -12,18 +12,92 @@ function fullNameHook(result, text) {
 
 jQuery(document).ready(function($) {
 
+  /*$.fn.bindFirst = function(name, fn) {
+    var elem, handlers, i, _len;
+    this.bind(name, fn);
+    for (i = 0, _len = this.length; i < _len; i++) {
+      elem = this[i];
+      handlers = jQuery._data(elem).events[name.split('.')[0]];
+      handlers.unshift(handlers.pop());
+    }
+  };*/
+
+  // Fix wrong payment method being selected by app.js form POS
+  jQuery("#modal-order_payment a.payment_methods").click(function() {
+    jQuery('#modal-order_payment a.payment_methods input[type=radio].select_payment_method').attr('checked', false);
+    jQuery('#modal-order_payment a.payment_methods input[type=radio].select_payment_method').each(el => this.checked = false);
+    jQuery(this).find('input[type=radio]').attr('checked', true);
+    jQuery(this).find('input[type=radio]')[0].checked = true;
+  });
+
+  // Add requirement by QZ Signing proccess
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://cdn.rawgit.com/kjur/jsrsasign/c057d3447b194fa0a3fdcea110579454898e093d/jsrsasign-all-min.js';
+  document.head.appendChild(script);
+
+  function deferQz(method) {
+    if (window.qz) {
+      method();
+    } else {
+      setTimeout(function() {
+        deferQz(method)
+      }, 1000);
+    }
+  }
+
+  // Actually sign messages using QZ and local certificates
+  deferQz(function() {
+    qz.security.setCertificatePromise(function(resolve, reject) {
+      resolve(publicKey);
+    });
+
+    qz.security.setSignaturePromise(function(toSign) {
+      return function(resolve, reject) {
+        try {
+          var pk = KEYUTIL.getKey(privateKey);
+          var sig = new KJUR.crypto.Signature({
+            "alg": "SHA1withRSA"
+          });
+          sig.init(pk);
+          sig.updateString(toSign);
+          var hex = sig.sign();
+          resolve(stob64(hextorstr(hex)));
+        } catch (err) {
+          console.error(err);
+          reject(err);
+        }
+      };
+    });
+  });
+
   // Logic
   var functions = {};
   var lastPaymentData = null;
 
+  // Speed up the proccess of adding many coupons. This needs the CSS to remove ability to remove the coupon 'revendedor', as expected
   var apply_coupon_revenda = function() {
-    APP.db.values('coupons').done(function(obs) {
-      for (var i = 0; i < obs.length; i++) {
-        if (obs[i].code.startsWith('autorevenda')) {
-          CART.add_discount(obs[i].code);
+    if (!CART.coupons_enabled()) {
+      return false;
+    }
+    if (!CART.has_discount('revendedor')) {
+      APP.db.values('coupons').done(function(obs) {
+        for (var i = 0; i < obs.length; i++) {
+          if (obs[i].code.startsWith('autorevenda')) {
+            var the_coupon = new WC_Coupon(obs[i].code, obs[i]);
+            CART.applied_coupons.push(obs[i].code);
+            CART.coupons[obs[i].code] = the_coupon;
+          }
         }
-      }
-    });
+      }).done(function(obs) {
+        if (typeof CART.coupons['pos discount'] != 'undefined') {
+          var pos_discount = clone(CART.coupons['pos discount']);
+          delete CART.coupons['pos discount'];
+          CART.coupons['pos discount'] = pos_discount;
+        }
+        CART.calculate_totals();
+      });
+    }
   };
 
   var is_valid = function() {
@@ -227,6 +301,25 @@ jQuery(document).ready(function($) {
       }
     }
   });
+
+  // TODO: remove coupons when 'revendedor' is removed
+
+  /*$('#edit_wc_pos_registers .span_clear_order_coupon').bindFirst('click', function(e) {
+    var cc = $(this).closest('tr').data('coupon');
+    if (cc == 'revendedor') {
+      var removedAll = true;
+      jQuery('#edit_wc_pos_registers .span_clear_order_coupon').each((i, el) => {
+        var $row = $(this).closest('tr');
+        var coupon_code = $row.data('coupon');
+        if (CART.remove_coupon(coupon_code, true))
+          $row.remove();
+        else
+          removedAll = false;
+      });
+      if (!removedAll)
+        e.stopPropagation();
+    }
+  });*/
 
   functions.search_customer_wc_3 = APP.search_customer_wc_3;
   functions.set_default_data = CUSTOMER.set_default_data;
